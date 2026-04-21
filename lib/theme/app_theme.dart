@@ -2,31 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
-  // Seed color
   static const Color _seedColor = Color(0xFF6750A4);
 
-  // Note card colors (light)
   static const List<Color> noteColorsLight = [
-    Color(0xFFFFFDE7), // Yellow
-    Color(0xFFE8F5E9), // Green
-    Color(0xFFE3F2FD), // Blue
-    Color(0xFFFCE4EC), // Pink
-    Color(0xFFF3E5F5), // Purple
-    Color(0xFFE0F2F1), // Teal
-    Color(0xFFFFF3E0), // Orange
-    Color(0xFFF1F8E9), // Light green
+    Color(0xFFFFFDE7),
+    Color(0xFFE8F5E9),
+    Color(0xFFE3F2FD),
+    Color(0xFFFCE4EC),
+    Color(0xFFF3E5F5),
+    Color(0xFFE0F2F1),
+    Color(0xFFFFF3E0),
+    Color(0xFFF1F8E9),
   ];
 
-  // Note card colors (dark)
   static const List<Color> noteColorsDark = [
-    Color(0xFF4A4000), // Dark yellow
-    Color(0xFF1B3A20), // Dark green
-    Color(0xFF0D2B4E), // Dark blue
-    Color(0xFF4A1A28), // Dark pink
-    Color(0xFF2D1B45), // Dark purple
-    Color(0xFF0A2E2A), // Dark teal
-    Color(0xFF3E2000), // Dark orange
-    Color(0xFF1A2E0A), // Dark light-green
+    Color(0xFF4A4000),
+    Color(0xFF1B3A20),
+    Color(0xFF0D2B4E),
+    Color(0xFF4A1A28),
+    Color(0xFF2D1B45),
+    Color(0xFF0A2E2A),
+    Color(0xFF3E2000),
+    Color(0xFF1A2E0A),
   ];
 
   static ThemeData lightTheme() {
@@ -50,7 +47,7 @@ class AppTheme {
           color: colorScheme.onSurface,
         ),
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
@@ -72,13 +69,10 @@ class AppTheme {
           borderRadius: BorderRadius.circular(28),
           borderSide: BorderSide.none,
         ),
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
       ),
       chipTheme: ChipThemeData(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
       navigationBarTheme: NavigationBarThemeData(
         elevation: 0,
@@ -113,7 +107,7 @@ class AppTheme {
           color: colorScheme.onSurface,
         ),
       ),
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
@@ -135,13 +129,10 @@ class AppTheme {
           borderRadius: BorderRadius.circular(28),
           borderSide: BorderSide.none,
         ),
-        contentPadding:
-            const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
       ),
       chipTheme: ChipThemeData(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       ),
       navigationBarTheme: NavigationBarThemeData(
         elevation: 0,

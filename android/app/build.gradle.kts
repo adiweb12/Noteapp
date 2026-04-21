@@ -7,7 +7,7 @@ plugins {
 android {
     namespace = "com.notecraft.app"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = "27.0.12077973"
+    ndkVersion = "28.2.13676358"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -21,7 +21,7 @@ android {
 
     defaultConfig {
         applicationId = "com.notecraft.app"
-        minSdk = 21
+        minSdk = 23
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
@@ -29,12 +29,10 @@ android {
     }
 
     buildTypes {
-        getByName("release") {
-            // In Kotlin (.kts), use 'is' prefix for these properties
+        release {
+            signingConfig = signingConfigs.getByName("debug")
             isMinifyEnabled = false
             isShrinkResources = false
-            
-            signingConfig = signingConfigs.getByName("debug")
         }
     }
 }

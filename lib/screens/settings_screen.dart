@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:share_plus/share_plus.dart';
 import '../viewmodels/providers.dart';
-import '../utils/app_constants.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -22,7 +21,6 @@ class SettingsScreen extends ConsumerWidget {
       ),
       body: ListView(
         children: [
-          // ─── Appearance ───────────────────────────────────────────────
           _SectionHeader(title: 'Appearance'),
           _SettingsTile(
             icon: Icons.palette_outlined,
@@ -31,7 +29,6 @@ class SettingsScreen extends ConsumerWidget {
             onTap: () => _showThemePicker(context, ref),
           ),
 
-          // ─── Data ─────────────────────────────────────────────────────
           _SectionHeader(title: 'Data'),
           _SettingsTile(
             icon: Icons.upload_file_outlined,
@@ -40,11 +37,9 @@ class SettingsScreen extends ConsumerWidget {
             onTap: () async {
               try {
                 final file = await repo.exportNotesToJson();
-                await SharePlus.instance.share(
-                  ShareParams(
-                    files: [XFile(file.path)],
-                    text: 'NoteCraft export',
-                  ),
+                await Share.shareXFiles(
+                  [XFile(file.path)],
+                  subject: 'NoteCraft Export',
                 );
               } catch (e) {
                 if (context.mounted) {
@@ -62,7 +57,6 @@ class SettingsScreen extends ConsumerWidget {
             onTap: () => _importNotes(context, ref),
           ),
 
-          // ─── About ────────────────────────────────────────────────────
           _SectionHeader(title: 'About'),
           _SettingsTile(
             icon: Icons.info_outline,
@@ -73,15 +67,14 @@ class SettingsScreen extends ConsumerWidget {
               applicationName: 'NoteCraft',
               applicationVersion: '1.0.0',
               applicationIcon: const FlutterLogo(size: 48),
-              children: [
-                const Text(
+              children: const [
+                Text(
                   'A beautiful, feature-rich notepad app with rich text editing, drawing, and image support.',
                 ),
               ],
             ),
           ),
 
-          // ─── Stats ────────────────────────────────────────────────────
           _SectionHeader(title: 'Statistics'),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -110,7 +103,6 @@ class SettingsScreen extends ConsumerWidget {
               ],
             ),
           ),
-
           const SizedBox(height: 32),
         ],
       ),
@@ -148,8 +140,7 @@ class SettingsScreen extends ConsumerWidget {
               ),
             ),
             const SizedBox(height: 16),
-            Text('Choose Theme',
-                style: Theme.of(ctx).textTheme.titleMedium),
+            Text('Choose Theme', style: Theme.of(ctx).textTheme.titleMedium),
             const SizedBox(height: 8),
             for (final mode in ThemeMode.values)
               RadioListTile<ThemeMode>(
@@ -177,9 +168,10 @@ class SettingsScreen extends ConsumerWidget {
         allowedExtensions: ['json'],
       );
       if (result == null || result.files.isEmpty) return;
+      final filePath = result.files.first.path;
+      if (filePath == null) return;
 
-      final file = File(result.files.first.path!);
-      final content = await file.readAsString();
+      final content = await File(filePath).readAsString();
       final repo = ref.read(notesRepositoryProvider);
       final count = await repo.importNotesFromJson(content);
       ref.read(notesProvider.notifier).refresh();
@@ -250,14 +242,14 @@ class _SettingsTile extends StatelessWidget {
           color: theme.colorScheme.primaryContainer.withOpacity(0.5),
           borderRadius: BorderRadius.circular(10),
         ),
-        child: Icon(icon,
-            color: theme.colorScheme.primary, size: 20),
+        child: Icon(icon, color: theme.colorScheme.primary, size: 20),
       ),
       title: Text(title, style: theme.textTheme.bodyLarge),
-      subtitle: Text(subtitle,
-          style: theme.textTheme.bodySmall?.copyWith(
-            color: theme.colorScheme.onSurfaceVariant,
-          )),
+      subtitle: Text(
+        subtitle,
+        style: theme.textTheme.bodySmall
+            ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+      ),
       trailing: const Icon(Icons.chevron_right, size: 20),
       onTap: onTap,
     );
@@ -294,15 +286,13 @@ class _StatCard extends StatelessWidget {
             const SizedBox(height: 8),
             Text(
               value,
-              style: theme.textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.w700,
-              ),
+              style: theme.textTheme.headlineSmall
+                  ?.copyWith(fontWeight: FontWeight.w700),
             ),
             Text(
               label,
               style: theme.textTheme.labelSmall?.copyWith(
-                color: theme.colorScheme.onSurfaceVariant,
-              ),
+                  color: theme.colorScheme.onSurfaceVariant),
             ),
           ],
         ),
