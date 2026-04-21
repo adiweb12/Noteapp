@@ -6,3 +6,4 @@ linter:
     avoid_print: true
     prefer_final_locals: false
     use_build_context_synchronously: true
+
