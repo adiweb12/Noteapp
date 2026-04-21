@@ -2,7 +2,7 @@ name: Unzip and Sync
 on:
   push:
     paths:
-      - 'auralyx.zip' # Runs only when the zip file is updated
+      - 'notepad_app.zip' # Runs only when the zip file is updated
   workflow_dispatch:      # Allows you to run it manually
 
 jobs:
@@ -19,7 +19,7 @@ jobs:
       - name: Extract Zip
         run: |
           # Define variables
-          ZIP_FILE="auralyx.zip"
+          ZIP_FILE="notepad_app.zip"
           
           echo "📂 Extracting $ZIP_FILE..."
           unzip -o $ZIP_FILE -d .
