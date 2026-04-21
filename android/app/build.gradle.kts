@@ -29,10 +29,12 @@ android {
     }
 
     buildTypes {
-        release {
-            signingConfig = signingConfigs.getByName("debug")
+        getByName("release") {
+            // In Kotlin (.kts), use 'is' prefix for these properties
             isMinifyEnabled = false
-            shrinkResources = false
+            isShrinkResources = false
+            
+            signingConfig = signingConfigs.getByName("release")
         }
     }
 }
